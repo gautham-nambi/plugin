@@ -27,37 +27,29 @@ var handleRequest = function(request, sender, cb) {
         }
     }
 };
-var ajaxSend = function() {
-    $.ajax({
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        url: 'http://127.0.0.1:8000',
-        method: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(a),
-        processData: false,
-        success: function(response) {
-            console.log(response);
-            var doc = document.querySelector(response['query']);
-            $('.xh-highlight').removeClass('xh-highlight');
-            $(doc).addClass('xh-highlight');
-            console.log("DATA SENT");
-        },
-        error: function(response) {
-            var doc = document.querySelector(a['query']);
-            $('.xh-highlight').removeClass('xh-highlight');
-            $(doc).addClass('xh-highlight');
-            console.log("DATA SENT");
-            console.log("Error");
-        }
-    });
-};
 var clk = function(request, sender, cb) {
     if (!initialized) {
         initialized = true;
         $(buttonEL).click(function() {
-            console.log(selectEl.value);
+            $.ajax({
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                url: 'http://127.0.0.1:8000',
+                method: 'POST',
+                data: JSON.stringify({path : selectEl.value}),
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    console.log("DATA SENT");
+                },
+                error: function(response) {
+                    console.log(response);
+                    console.log("Error");
+                }
+            });
+            // ajaxSend(selectEl.value);
+            // console.log(selectEl.value);
             return false;
         });
     }
