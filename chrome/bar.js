@@ -41,7 +41,6 @@ var clk = function(request, sender, cb) {
                 processData: false,
                 success: function(response) {
                     console.log(response);
-                    console.log("DATA SENT");
                 },
                 error: function(response) {
                     console.log(response);
